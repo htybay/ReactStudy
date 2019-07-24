@@ -1,0 +1,11 @@
+.react-header {
+  background-color: #fff;
+  padding: 0 16px;
+  border-bottom: rgba(29, 160, 29, 0.933);
+}
+.react-logo {
+  height: 60px;
+}
+.react-logo img {
+  max-height: 100%;
+}

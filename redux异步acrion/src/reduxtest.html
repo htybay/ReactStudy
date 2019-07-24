@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Redux学习</title>
+</head>
+<body>
+    <button onclick="store.dispatch({type:'JIA',n:1})">+</button>
+    <span id ='countDisplay'>10</span>
+    <button onclick="store.dispatch({type:'JIAN',n:1})">-</button>
+    <script>
+
+
+const countDisplay =document.querySelector('#countDisplay')
+const countSate ={
+    count:5
+}
+
+const changeState = (state,action)=>{
+    if(!state){
+        return countSate
+    }
+    switch(action.type){
+        case 'JIA':
+        return{
+            ...state,
+           count:state.count +action.n
+        }
+  
+        break
+        case 'JIAN':
+        return{
+            ...state,
+           count:state.count -action.n
+        }
+        default:
+        return state
+    }
+}
+
+const createStore = ( changeState)=>{
+    let state =null
+        const getState=()=> state
+        const listeners=[]
+        const subScrible = (listener)=>listeners.push(listener)
+        const dispatch = (action)=>{
+            console.log(action)
+            state = changeState(state,action)
+           // renderCount()
+           listeners.forEach(listener=>listener())
+        }
+       dispatch({})
+        return{
+            getState,
+            dispatch,
+            subScrible+
+        }
+}
+const store = createStore(changeState)
+
+const renderCount =()=>{
+    countDisplay.innerHTML =store.getState().count
+}
+store.subScrible(renderCount)
+    </script>
+</body>
+</html>
